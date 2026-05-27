@@ -1,43 +1,46 @@
 'use client';
 
 import { useActionState } from 'react';
-import { EditSubscription } from './actions';
+import { EditSubscription } from '../subscriptions/actions';
 import { Loader2, PlusCircle } from 'lucide-react';
 
-export function SubscriptionForm() {
-  // useActionState handles the pending state and response from your server action
+export function EditSubscriptionForm({ subscription }: { subscription?: any }) {
   const [state, action, isPending] = useActionState(EditSubscription, null);
 
   return (
-    <form action={action} className="space-y-4 bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+    <form action={action} className="...">
+      <input type="hidden" name="id" value={subscription?.id} />
+
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div className="space-y-2">
-          <label htmlFor="name" className="text-sm font-medium text-slate-700">Service Name</label>
+          <label htmlFor="name" className="...">Service Name</label>
           <input
             required
             name="name"
+            defaultValue={subscription?.name}
             placeholder="e.g. Netflix, ChatGPT"
-            className="w-full px-3 py-2 rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all placeholder:text-slate-400"
+            className="..."
           />
         </div>
         
         <div className="space-y-2">
-          <label htmlFor="cost" className="text-sm font-medium text-slate-700">Monthly Cost ($)</label>
+          <label htmlFor="cost" className="...">Monthly Cost ($)</label>
           <input
             required
             type="number"
             step="0.01"
             name="cost"
-            placeholder="0.00"
-            className="w-full px-3 py-2 rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
+            defaultValue={subscription?.cost} 
+            className="..."
           />
         </div>
 
         <div className="space-y-2">
-          <label htmlFor="cycle" className="text-sm font-medium text-slate-700">Billing Cycle</label>
+          <label htmlFor="cycle" className="...">Billing Cycle</label>
           <select 
             name="cycle" 
-            className="w-full px-3 py-2 rounded-lg border border-slate-300 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
+            defaultValue={subscription?.cycle || "monthly"}
+            className="..."
           >
             <option value="monthly">Monthly</option>
             <option value="yearly">Yearly</option>
@@ -45,35 +48,56 @@ export function SubscriptionForm() {
         </div>
 
         <div className="space-y-2">
-          <label htmlFor="nextRenewal" className="text-sm font-medium text-slate-700">Next Renewal Date</label>
+          <label htmlFor="nextRenewal" className="...">Next Renewal Date</label>
           <input
             required
             type="date"
             name="nextRenewal"
-            className="w-full px-3 py-2 rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
+       
+            defaultValue={subscription?.nextRenewal?.toISOString().split('T')[0]} 
+            className="..."
           />
         </div>
       </div>
-
+      
       {state?.error && (
+
         <div className="p-3 text-sm text-red-600 bg-red-50 rounded-lg border border-red-100 animate-in fade-in slide-in-from-top-1">
+
           {state.error}
+
         </div>
+
       )}
+
+
 
       {state?.success && (
+
         <div className="p-3 text-sm text-green-600 bg-green-50 rounded-lg border border-green-100 animate-in fade-in slide-in-from-top-1">
+
           {state.success}
+
         </div>
+
       )}
 
+
+
       <button
+
         disabled={isPending}
+
         className="w-full flex items-center justify-center gap-2 bg-slate-900 hover:bg-slate-800 text-white font-semibold py-2.5 rounded-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+
       >
+
         {isPending ? <Loader2 className="w-5 h-5 animate-spin" /> : <PlusCircle className="w-5 h-5" />}
+
         Add Subscription
+
       </button>
+
     </form>
   );
 }
