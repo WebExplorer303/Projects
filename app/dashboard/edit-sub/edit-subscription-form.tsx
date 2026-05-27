@@ -4,7 +4,7 @@ import { EditSubscription } from "../subscriptions/actions";
 import { useActionState } from "react";
 import { useRouter } from "next/navigation";
 
-export default function EditSubscriptionForm(subscription: any) {
+export default function EditSubscriptionForm({ subscription }: { subscription: any }) {
     const router = useRouter();
     const [state, formAction, isPending] = useActionState(EditSubscription, null);
 
@@ -12,6 +12,7 @@ export default function EditSubscriptionForm(subscription: any) {
         <div className="p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md border border-gray-200 dark:border-gray-700">
             <h2 className="text-xl font-bold mb-4 text-gray-900 dark:text-white">Edit Subscription</h2>
             <form action={formAction} className="space-y-4">
+              <input type="hidden" name="id" value={subscription.id} />
                 <div>
                     <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Service Name</label>
                     <input
