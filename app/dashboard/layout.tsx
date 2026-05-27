@@ -33,7 +33,7 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
           </div>
         </div>
 
-        <nav className="flex-1 px-4 py-6 space-y-2">
+        <nav className="hidden md:flex px-4 py-6 space-y-2">
 
           <Link
             href="/dashboard/subscriptions"
