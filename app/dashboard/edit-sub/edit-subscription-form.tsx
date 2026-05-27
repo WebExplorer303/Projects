@@ -1,103 +1,86 @@
-'use client';
+"use client";
 
-import { useActionState } from 'react';
-import { EditSubscription } from '../subscriptions/actions';
-import { Loader2, PlusCircle } from 'lucide-react';
+import { EditSubscription } from "../subscriptions/actions";
+import { useActionState } from "react";
+import { useRouter } from "next/navigation";
 
-export function EditSubscriptionForm({ subscription }: { subscription?: any }) {
-  const [state, action, isPending] = useActionState(EditSubscription, null);
+export default function EditSubscriptionForm(subscription: any) {
+    const router = useRouter();
+    const [state, formAction, isPending] = useActionState(EditSubscription, null);
 
-  return (
-    <form action={action} className="...">
-      <input type="hidden" name="id" value={subscription?.id} />
+    return (
+        <div className="p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md border border-gray-200 dark:border-gray-700">
+            <h2 className="text-xl font-bold mb-4 text-gray-900 dark:text-white">Edit Subscription</h2>
+            <form action={formAction} className="space-y-4">
+                <div>
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Service Name</label>
+                    <input
+                        type="text"
+                        name="name"
+                        required
+                        className="mt-1 block w-full rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 outline-none"
+                        placeholder="e.g. Netflix"
+                        defaultValue={subscription.name}
+                    />
+                </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div className="space-y-2">
-          <label htmlFor="name" className="...">Service Name</label>
-          <input
-            required
-            name="name"
-            defaultValue={subscription?.name}
-            placeholder="e.g. Netflix, ChatGPT"
-            className="..."
-          />
+                <div>
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Monthly Cost ($)</label>
+                    <input
+                        type="number"
+                        name="cost"
+                        step="0.01"
+                        required
+                        className="mt-1 block w-full rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 outline-none"
+                        placeholder="15.99"
+                        defaultValue={subscription.cost.toFixed(2)}
+                    />
+                </div>
+
+                <div>
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Billing Cycle</label>
+                    <select
+                        name="cycle"
+                          defaultValue={subscription.cycle}
+                        className="mt-1 block w-full rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 outline-none"
+                    >
+                    
+                        <option value="monthly">Monthly</option>
+                        <option value="yearly">Yearly</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Next Renewal Date</label>
+                    <input
+                        type="date"
+                        name="nextRenewal"
+                        required
+                        className="mt-1 block w-full rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 outline-none"
+                        defaultValue={subscription.nextRenewal}
+                    />
+                </div>
+
+                {state?.error && (
+                    <div className="p-3 text-sm text-red-600 bg-red-50 rounded-lg border border-red-100">
+                        {state.error}
+                    </div>
+                )}
+
+                {state?.success && (
+                    <div className="p-3 text-sm text-green-600 bg-green-50 rounded-lg border border-green-100">
+                        {state.success}
+                    </div>
+                )}
+
+                <button
+                    type="submit"
+                    disabled={isPending}
+                    className="w-full bg-blue-600 text-white text-sm font-semibold py-2 rounded-md hover:bg-blue-700 transition-colors disabled:bg-blue-300"
+                >
+                    {isPending ? 'Adding...' : 'Add Subscription'}
+                </button>
+            </form>
         </div>
-        
-        <div className="space-y-2">
-          <label htmlFor="cost" className="...">Monthly Cost ($)</label>
-          <input
-            required
-            type="number"
-            step="0.01"
-            name="cost"
-            defaultValue={subscription?.cost} 
-            className="..."
-          />
-        </div>
-
-        <div className="space-y-2">
-          <label htmlFor="cycle" className="...">Billing Cycle</label>
-          <select 
-            name="cycle" 
-            defaultValue={subscription?.cycle || "monthly"}
-            className="..."
-          >
-            <option value="monthly">Monthly</option>
-            <option value="yearly">Yearly</option>
-          </select>
-        </div>
-
-        <div className="space-y-2">
-          <label htmlFor="nextRenewal" className="...">Next Renewal Date</label>
-          <input
-            required
-            type="date"
-            name="nextRenewal"
-       
-            defaultValue={subscription?.nextRenewal?.toISOString().split('T')[0]} 
-            className="..."
-          />
-        </div>
-      </div>
-      
-      {state?.error && (
-
-        <div className="p-3 text-sm text-red-600 bg-red-50 rounded-lg border border-red-100 animate-in fade-in slide-in-from-top-1">
-
-          {state.error}
-
-        </div>
-
-      )}
-
-
-
-      {state?.success && (
-
-        <div className="p-3 text-sm text-green-600 bg-green-50 rounded-lg border border-green-100 animate-in fade-in slide-in-from-top-1">
-
-          {state.success}
-
-        </div>
-
-      )}
-
-
-
-      <button
-
-        disabled={isPending}
-
-        className="w-full flex items-center justify-center gap-2 bg-slate-900 hover:bg-slate-800 text-white font-semibold py-2.5 rounded-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed"
-
-      >
-
-        {isPending ? <Loader2 className="w-5 h-5 animate-spin" /> : <PlusCircle className="w-5 h-5" />}
-
-        Add Subscription
-
-      </button>
-
-    </form>
-  );
+    );
 }
