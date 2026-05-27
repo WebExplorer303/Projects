@@ -1,7 +1,7 @@
 "use server"
 
 import { revalidatePath } from "next/cache"
-import { insertProductToDatabase } from "@/lib/db-actions"
+import { prisma } from "@/lib/prisma" // Import your prisma instance
 import { auth } from "@clerk/nextjs/server"
 
 export async function addSubscription(prevState: any, formData: FormData) {
@@ -24,7 +24,60 @@ export async function addSubscription(prevState: any, formData: FormData) {
     }
 
     try {
-        await insertProductToDatabase(payload)
+        // Use Prisma's .create() method directly
+        await prisma.product.create({
+            data: {
+                name: payload.name,
+                cost: payload.cost,
+                cycle: payload.cycle,
+                nextRenewal: payload.nextRenewal,
+                userId: payload.userId,
+            }
+        });
+
+        revalidatePath("/dashboard/subscriptions")
+        revalidatePath("/dashboard")
+        return { success: "Subscription added successfully!" };
+    } catch (error) {
+        console.error("Failed to save:", error)
+        return { error: "Database operation failed" };
+    }
+}
+
+export async function EditSubscription(prevState: any, formData: FormData) {
+    const { userId } = await auth();
+
+    if (!userId) {
+        return { error: "Unauthorized" };
+    }
+
+    const payload = {
+        name: (formData.get("name") as string)?.trim(),
+        cost: parseFloat(formData.get("cost") as string) || 0,
+        cycle: formData.get("cycle") as string,
+        nextRenewal: formData.get("nextRenewal") as string,
+        userId
+    }
+
+    if (!payload.name || !payload.nextRenewal) {
+        return { error: "Missing required fields" };
+    }
+
+    try {
+        // Use Prisma's .create() method directly
+await prisma.product.update({
+    where: {
+        id: userId, // You need the unique ID of the record you're changing
+    },
+    data: {
+        name: payload.name,
+        cost: payload.cost,
+        cycle: payload.cycle,
+        nextRenewal: payload.nextRenewal,
+        // userId is typically not changed, so you don't need to include it
+    }
+});
+
         revalidatePath("/dashboard/subscriptions")
         revalidatePath("/dashboard")
         return { success: "Subscription added successfully!" };

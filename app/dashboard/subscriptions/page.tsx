@@ -35,6 +35,7 @@ const subscriptions = await getUserSubscriptions(userId);
                         <th className="px-6 py-3 text-left text-sm font-medium text-gray-500 uppercase tracking-wider">Cost</th>
                         <th className="px-6 py-3 text-left text-sm font-medium text-gray-500 uppercase tracking-wider">Cycle</th>
                         <th className="px-6 py-3 text-left text-sm font-medium text-gray-500 uppercase tracking-wider">Next Renewal</th>
+                        <th className="px-6 py-3 text-left text-sm font-medium text-gray-500 uppercase tracking-wider">Actions</th>
                     </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
@@ -44,6 +45,11 @@ const subscriptions = await getUserSubscriptions(userId);
                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">${sub.cost.toFixed(2)}</td>
                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">{sub.cycle}</td>
                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">{sub.nextRenewal}</td>
+                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                <Link href={`/dashboard/subscriptions/${sub.id}/edit`} className="text-blue-600 hover:text-blue-900 dark:text-blue-400 dark:hover:text-blue-300">
+                                    Edit
+                                </Link>
+                            </td>
                         </tr>
                     ))}
                 </tbody>
