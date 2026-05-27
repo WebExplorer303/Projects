@@ -79,7 +79,7 @@ export default function EditSubscriptionForm({ subscription }: { subscription: a
                     disabled={isPending}
                     className="w-full bg-blue-600 text-white text-sm font-semibold py-2 rounded-md hover:bg-blue-700 transition-colors disabled:bg-blue-300"
                 >
-                    {isPending ? 'Adding...' : 'Add Subscription'}
+                    {isPending ? 'Saving...' : 'Edit Subscription'}
                 </button>
             </form>
         </div>

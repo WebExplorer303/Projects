@@ -3,6 +3,7 @@ import { prisma as db } from "@/lib/prisma"; // Use the prisma.ts file as the cl
 import { getUserSubscriptions } from "@/lib/actions"; // Import the function to get user subscriptions
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
+import { DeleteSubscription } from "../subscriptions/actions";
 
 
 interface Subscription {
@@ -52,6 +53,12 @@ const subscriptions = await getUserSubscriptions(userId);
 >
   Edit
 </Link>
+<form action={async () => {
+    "use server";
+    await DeleteSubscription(sub.id); // Just call it, don't return anything to the form
+}}>
+   <button type="submit" className="inline-block mt-6 bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg transition-colors font-medium">Delete</button>
+</form>
                             </td>
                         </tr>
                     ))}

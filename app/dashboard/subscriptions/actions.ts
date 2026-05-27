@@ -86,3 +86,18 @@ await prisma.product.update({
         return { error: "Database operation failed" };
     }
 }
+
+export async function DeleteSubscription(id: string) {
+    const { userId } = await auth();
+    
+    if (!userId) throw new Error("Unauthorized");
+
+    await prisma.product.delete({
+        where: { 
+            id: id,
+            userId: userId 
+        }
+    });
+
+    revalidatePath("/dashboard");
+}
