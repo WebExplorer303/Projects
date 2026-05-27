@@ -21,7 +21,7 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
           </div>
 
           <div>
-            <h2 className="text-xl md:text-2xl font-bold text-blue-600">
+            <h2 className="text-xl md:text-2xl font-bold text-white-600">
               <Link href="/dashboard">MicroSaaS Tracker</Link>
             </h2>
           </div>
@@ -31,13 +31,13 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
         <nav className="flex md:flex-col p-2 gap-2">
           <Link
             href="/dashboard/subscriptions"
-            className="px-3 py-2 text-sm text-gray-700 hover:bg-blue-50 rounded-lg"
+            className="px-3 py-2 text-sm text-white-700 hover:bg-blue-50 rounded-lg"
           >
             Subscriptions
           </Link>
           <Link
             href="/dashboard/analytics"
-            className="px-3 py-2 text-sm text-gray-700 hover:bg-blue-50 rounded-lg"
+            className="px-3 py-2 text-sm text-white-700 hover:bg-blue-50 rounded-lg"
           >
             Analytics
           </Link>
