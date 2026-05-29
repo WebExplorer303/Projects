@@ -9,7 +9,7 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
     <div className="flex flex-col md:flex-row h-screen bg-gray-50 dark:bg-gray-900">
 
       <aside className="w-full md:w-64 bg-white dark:bg-gray-800 border-b md:border-r border-gray-200 dark:border-gray-700 flex flex-col">
-        <div className="p-4 md:p-6 border-b border-gray-100 dark:border-gray-700 flex flex-col gap-4">
+       <div className="p-4 md:p-6 border-b border-gray-100 dark:border-gray-700 flex flex-col gap-4">
 <div className="w-full bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-xl px-5 py-4 shadow-sm flex items-center justify-between">
   
 
@@ -25,7 +25,8 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
   </div>
 
 </div>
-
+</div>
+   <div className="p-4 md:p-6 border-b border-gray-100 dark:border-gray-700 flex flex-col gap-4">
           <div>
           <h2 className="text-xl md:text-2xl font-bold text-slate-100 tracking-tight">
   <Link href="/dashboard" className="hover:text-white transition-colors duration-200">
