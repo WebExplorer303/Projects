@@ -49,7 +49,7 @@ const subscriptions = await getUserSubscriptions(userId);
   <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                              <Link 
   href={`/dashboard/edit-sub/${sub.id}`} 
-  className="inline-flex items-center justify-center mt-6 bg-slate-900 hover:bg-slate-800 text-white px-6 py-2 rounded-lg transition-all font-medium shadow-sm"
+  className="inline-block mt-6 bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg transition-colors font-medium"
 >
   Edit
 </Link>
@@ -57,7 +57,7 @@ const subscriptions = await getUserSubscriptions(userId);
     "use server";
     await DeleteSubscription(sub.id); // Just call it, don't return anything to the form
 }}>
-   <button type="submit" className="inline-block mt-6 bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg transition-colors font-medium">Delete</button>
+   <button type="submit" className="inline-block mt-6 bg-red-600 hover:bg-red-700 text-white px-6 py-2 rounded-lg transition-colors font-medium">Delete</button>
 </form>
                             </td>
                         </tr>
