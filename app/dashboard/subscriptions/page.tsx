@@ -47,18 +47,29 @@ const subscriptions = await getUserSubscriptions(userId);
                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">{sub.cycle}</td>
                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">{sub.nextRenewal}</td>
   <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                             <Link 
-  href={`/dashboard/edit-sub/${sub.id}`} 
-  className="inline-block mt-6 bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg transition-colors font-medium"
->
-  Edit
-</Link>
-<form action={async () => {
-    "use server";
-    await DeleteSubscription(sub.id); // Just call it, don't return anything to the form
-}}>
-   <button type="submit" className="inline-block mt-6 bg-red-600 hover:bg-red-700 text-white px-6 py-2 rounded-lg transition-colors font-medium">Delete</button>
-</form>
+<div className="flex gap-4 mt-6 w-full max-w-md">
+  <Link 
+    href={`/dashboard/edit-sub/${sub.id}`} 
+    className="flex-1 text-center bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg transition-colors font-medium"
+  >
+    Edit
+  </Link>
+  
+  <form 
+    action={async () => {
+      "use server";
+      await DeleteSubscription(sub.id);
+    }}
+    className="flex-1"
+  >
+    <button 
+      type="submit" 
+      className="w-full bg-red-600 hover:bg-red-700 text-white px-6 py-2 rounded-lg transition-colors font-medium"
+    >
+      Delete
+    </button>
+  </form>
+</div>
                             </td>
                         </tr>
                     ))}
