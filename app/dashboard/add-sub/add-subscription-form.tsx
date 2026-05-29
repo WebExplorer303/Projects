@@ -52,6 +52,7 @@ export default function AddSubscriptionForm() {
                         type="date"
                         name="nextRenewal"
                         required
+                        pattern="\d{2}-\d{2}-\d{4}"
                         className="mt-1 block w-full rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 outline-none"
                     />
                 </div>
