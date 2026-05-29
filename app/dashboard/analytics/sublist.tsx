@@ -38,7 +38,7 @@ export default function SubscriptionList({ subscriptions }: { subscriptions: any
                     })}
                   </p>
                 </div>
-                <span className="font-bold text-gray-900 dark:text-white">${Number(sub.cost).toFixed(2)}</span>
+                <span className="font-bold text-gray-900 dark:text-white">₹{Number(sub.cost).toFixed(2)}</span>
               </div>
             );
           })

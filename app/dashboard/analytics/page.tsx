@@ -1,10 +1,11 @@
 import SubscriptionDonut from "../analytics/chart";
 import { prisma } from "../../../lib/prisma";
-import DashboardPage from "../page";
+import { Overview } from "../overview";
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import { getUserSubscriptions } from "@/lib/actions";
 import SubscriptionList from "../analytics/sublist";
+
 
 
 export default async function AnalyticsPage() {
@@ -29,9 +30,7 @@ export default async function AnalyticsPage() {
 
     return (
         <>
-            <DashboardPage />
-
-
+            <Overview />
             <div className="space-y-4 p-6">
                 <h2 className="text-xl font-bold">Upcoming Renewals</h2>
                 <SubscriptionList subscriptions={upcomingSubscriptions} />

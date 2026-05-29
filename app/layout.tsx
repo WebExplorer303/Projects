@@ -15,8 +15,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Budget Tracker",
-  description: "Track your SaaS budget and expenses seamlessly",
+  title: "Subscription Tracker",
+  description: "Track your SaaS (Software as a service) budget and expenses seamlessly",
 };
 
 export default function RootLayout({
