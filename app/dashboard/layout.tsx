@@ -10,14 +10,21 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
 
       <aside className="w-full md:w-64 bg-white dark:bg-gray-800 border-b md:border-r border-gray-200 dark:border-gray-700 flex flex-col">
         <div className="p-4 md:p-6 border-b border-gray-100 dark:border-gray-700 flex flex-col gap-4">
-          <div className="flex items-center justify-between w-full">
-       <div className="block font-semibold text-gray-700 dark:text-gray-300 p-4">
-  Profile
+<div className="w-full bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-xl px-5 py-4 shadow-sm flex items-center justify-between">
+  
+
+  <div className="font-semibold text-neutral-800 dark:text-neutral-200">
+    Profile
+  </div>
+
+
+  <div className="flex items-center">
+    <ClerkProvider>
+      <UserButton userProfileMode="modal" />
+    </ClerkProvider>
+  </div>
+
 </div>
-            <ClerkProvider>
-              <UserButton userProfileMode="modal" />
-            </ClerkProvider>
-          </div>
 
           <div>
           <h2 className="text-xl md:text-2xl font-bold text-slate-100 tracking-tight">
