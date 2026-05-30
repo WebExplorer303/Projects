@@ -134,7 +134,7 @@ export async function checkAndRequestRenewalUpdates(userId: string) {
 
       return prisma.product.update({
         where: { id: sub.id },
-        data: { nextRenewal: renewalDate.toISOString() },
+        data: { nextRenewal: renewalDate.toISOString().split("T")[0] },
       });
     })
   );
